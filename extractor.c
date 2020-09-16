@@ -70,7 +70,10 @@ unsigned char* find_text(void *data, size_t *size){
 	Elf32_Ehdr *head = (Elf32_Ehdr *)data;
 	Elf32_Shdr *section = (Elf32_Shdr *)((char *)data + head -> e_shoff);
 	unsigned char *str = (unsigned char *)data + ((section + head -> e_shstrndx) -> sh_offset);
-
+	if(head -> EI_CLASS != ELFCLASS32){
+		puts("this program only support 32 bit executables!");
+		return NULL;
+	}
 
 	for(i = 0; i < head -> e_shnum; i++){
 		if(!strcmp((char *)str + section -> sh_name, ".text")){
