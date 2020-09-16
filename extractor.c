@@ -84,5 +84,5 @@ unsigned char* find_text(void *data, size_t *size){
 		}
 		++section;
 	}
-	return NULL;
+	return NULL; 
 }
