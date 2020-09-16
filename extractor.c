@@ -39,6 +39,8 @@ int main(int argc, char *argv[]){
 	if(!file){
 		perror("mmap");
 		close(fd);
+		munmap(file, size);
+		return -1;
 	}
 	text = (unsigned char *)find_text(file, &section_size);
 	if(!text){
