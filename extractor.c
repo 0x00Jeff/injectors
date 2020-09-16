@@ -49,6 +49,7 @@ int main(int argc, char *argv[]){
 	}
 	for(i = 0;i < section_size; i++)
 		printf("\\x%02x", text[i]);
+	puts("");
 
 	close(fd);
 	munmap(file, size);
