@@ -15,3 +15,4 @@ int main(void){
 
 	return 0;
 }
+// compiled with gcc pivot.c -o pivot -z execstack
