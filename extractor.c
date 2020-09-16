@@ -44,7 +44,6 @@ int main(int argc, char *argv[]){
 	}
 	text = (unsigned char *)find_text(file, &section_size);
 	if(!text){
-		fprintf(stderr, ".text section wasn't found! be sure to supply a non-stripped binary\n");
 		close(fd);
 		munmap(file, size);
 		return -1;
@@ -72,8 +71,8 @@ unsigned char* find_text(void *data, size_t *size){
 	Elf32_Ehdr *head = (Elf32_Ehdr *)data;
 	Elf32_Shdr *section = (Elf32_Shdr *)((char *)data + head -> e_shoff);
 	unsigned char *str = (unsigned char *)data + ((section + head -> e_shstrndx) -> sh_offset);
-	if(head -> EI_CLASS != ELFCLASS32){
-		puts("this program only support 32 bit executables!");
+	if(head -> e_ident[EI_CLASS] != ELFCLASS32){
+		fprintf(stderr, "this program only support 32 bit executables!\n");
 		return NULL;
 	}
 
@@ -84,5 +83,6 @@ unsigned char* find_text(void *data, size_t *size){
 		}
 		++section;
 	}
+	fprintf(stderr, ".text section wasn't found! be sure to supply a non-stripped binary\n");
 	return NULL; 
 }
