@@ -61,7 +61,6 @@ size_t get_file_size(int fd){
 	struct stat st;
 	if(fstat(fd, &st) < 0){
 		perror("fstat");
-		close(fd);
 		return -1;
 	}	
 	return st.st_size;
